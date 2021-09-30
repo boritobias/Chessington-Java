@@ -16,14 +16,24 @@ public class Knight extends AbstractPiece {
     @Override
     public List<Move> getAllowedMoves(Coordinates from, Board board) {
         List<Move> allowedMoves = new ArrayList<>();
-        allowedMoves.add(new Move(from, from.plus(-2, 1)));
-        allowedMoves.add(new Move(from, from.plus(-2, -1)));
-        allowedMoves.add(new Move(from, from.plus(2, 1)));
-        allowedMoves.add(new Move(from, from.plus(2, -1)));
-        allowedMoves.add(new Move(from, from.plus(-1, 2)));
-        allowedMoves.add(new Move(from, from.plus(-1, -2)));
-        allowedMoves.add(new Move(from, from.plus(1, 2)));
-        allowedMoves.add(new Move(from, from.plus(1, -2)));
+        List<Move> possibleMoves = new ArrayList<>();
+        possibleMoves.add(new Move(from, from.plus(-2, 1)));
+        possibleMoves.add(new Move(from, from.plus(-2, -1)));
+        possibleMoves.add(new Move(from, from.plus(2, 1)));
+        possibleMoves.add(new Move(from, from.plus(2, -1)));
+        possibleMoves.add(new Move(from, from.plus(-1, 2)));
+        possibleMoves.add(new Move(from, from.plus(-1, -2)));
+        possibleMoves.add(new Move(from, from.plus(1, 2)));
+        possibleMoves.add(new Move(from, from.plus(1, -2)));
+
+        possibleMoves.forEach(move -> {
+            int row = move.getTo().getRow();
+            int col = move.getTo().getCol();
+            if (board.get(new Coordinates(row, col)) == null || board.get(new Coordinates(row, col)).getColour() != PlayerColour.WHITE) {
+                allowedMoves.add(move);
+            }
+        });
+
         return allowedMoves;
     }
 }

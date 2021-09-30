@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.*;
 
 public class KnightTest {
     @Test
-    public void whiteKnightCanMoveInLShape() {
+    public void knightCanMoveInLShape() {
         // Arrange
         Board board = Board.empty();
         Piece knight = new Knight(PlayerColour.WHITE);
@@ -25,5 +25,25 @@ public class KnightTest {
 
         // Assert
         assertThat(moves).contains(new Move(coords, coords.plus(-2, 1)));
+    }
+
+    @Test
+    public void whiteKnigthCannotMoveOnAnotherWhitePiece() {
+        // Arrange
+        Board board = Board.empty();
+
+        Piece knight = new Knight(PlayerColour.WHITE);
+        Coordinates knightCoords = new Coordinates(4, 4);
+        board.placePiece(knightCoords, knight);
+
+        Piece pawn = new Pawn(PlayerColour.WHITE);
+        Coordinates pawnCoords = new Coordinates(6, 5);
+        board.placePiece(pawnCoords, pawn);
+
+        // Act
+        List<Move> knightMoves = knight.getAllowedMoves(knightCoords, board);
+
+        // Assert
+        assertThat(knightMoves).doesNotContain(new Move(knightCoords, knightCoords.plus(2, 1)));
     }
 }
