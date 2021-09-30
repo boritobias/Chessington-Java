@@ -29,8 +29,10 @@ public class Knight extends AbstractPiece {
         possibleMoves.forEach(move -> {
             int row = move.getTo().getRow();
             int col = move.getTo().getCol();
-            if (board.get(new Coordinates(row, col)) == null || board.get(new Coordinates(row, col)).getColour() != PlayerColour.WHITE) {
+            if (row > 0 && row < 7 && col > 0 && col < 7) {
+                if (board.get(new Coordinates(row, col)) == null || board.get(new Coordinates(row, col)).getColour() != PlayerColour.WHITE) {
                 allowedMoves.add(move);
+                }
             }
         });
 
