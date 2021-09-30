@@ -118,7 +118,7 @@ public class BishopTest {
         Coordinates bishopCoords = new Coordinates(4, 4);
         board.placePiece(bishopCoords, bishop);
 
-        Piece pawn = new Pawn(PlayerColour.BLACK);
+        Piece pawn = new Pawn(PlayerColour.WHITE);
         Coordinates pawnCoords = new Coordinates(6, 6);
         board.placePiece(pawnCoords, pawn);
 
@@ -126,6 +126,6 @@ public class BishopTest {
         List<Move> moves = bishop.getAllowedMoves(bishopCoords, board);
 
         // Assert
-        assertThat(moves).doesNotContain(new Move(bishopCoords, bishopCoords.plus(2, 2)));
+        assertThat(moves).doesNotContain(new Move(bishopCoords, new Coordinates(6, 6)));
     }
 }
