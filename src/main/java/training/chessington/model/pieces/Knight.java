@@ -15,6 +15,15 @@ public class Knight extends AbstractPiece {
 
     @Override
     public List<Move> getAllowedMoves(Coordinates from, Board board) {
-        return new ArrayList<>();
+        List<Move> allowedMoves = new ArrayList<>();
+        allowedMoves.add(new Move(from, from.plus(-2, 1)));
+        allowedMoves.add(new Move(from, from.plus(-2, -1)));
+        allowedMoves.add(new Move(from, from.plus(2, 1)));
+        allowedMoves.add(new Move(from, from.plus(2, -1)));
+        allowedMoves.add(new Move(from, from.plus(-1, 2)));
+        allowedMoves.add(new Move(from, from.plus(-1, -2)));
+        allowedMoves.add(new Move(from, from.plus(1, 2)));
+        allowedMoves.add(new Move(from, from.plus(1, -2)));
+        return allowedMoves;
     }
 }
