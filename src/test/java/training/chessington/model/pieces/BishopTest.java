@@ -126,6 +126,6 @@ public class BishopTest {
         List<Move> moves = bishop.getAllowedMoves(bishopCoords, board);
 
         // Assert
-        assertThat(moves).doesNotContain(new Move(bishopCoords, new Coordinates(6, 6)));
+        assertThat(moves).doesNotContain(new Move(bishopCoords, bishopCoords.plus(2, 2)));
     }
 }
