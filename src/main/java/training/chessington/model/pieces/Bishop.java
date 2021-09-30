@@ -24,7 +24,11 @@ public class Bishop extends AbstractPiece {
             possibleMoves.add(new Move(from, from.plus(-i, -i)));
         }
         possibleMoves.forEach(move -> {
-            allowedMoves.add(move);
+            int row = move.getTo().getRow();
+            int col = move.getTo().getCol();
+            if (row >= 0 && row <= 7 && col >= 0 && col <= 7) {
+                allowedMoves.add(move);
+            }
         });
         return allowedMoves;
     }
