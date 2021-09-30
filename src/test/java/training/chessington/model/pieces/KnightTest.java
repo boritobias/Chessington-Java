@@ -28,7 +28,7 @@ public class KnightTest {
     }
 
     @Test
-    public void whiteKnigthCannotMoveOnAnotherWhitePiece() {
+    public void whiteKnightCannotMoveOnAnotherWhitePiece() {
         // Arrange
         Board board = Board.empty();
 
@@ -45,5 +45,25 @@ public class KnightTest {
 
         // Assert
         assertThat(knightMoves).doesNotContain(new Move(knightCoords, knightCoords.plus(2, 1)));
+    }
+
+    @Test
+    public void whiteKnightCanCaptureABlackPiece() {
+        // Arrange
+        Board board = Board.empty();
+
+        Piece knight = new Knight(PlayerColour.WHITE);
+        Coordinates knightCoords = new Coordinates(4, 4);
+        board.placePiece(knightCoords, knight);
+
+        Piece blackPawn = new Pawn(PlayerColour.BLACK);
+        Coordinates blackPawnCoords = new Coordinates(2, 5);
+        board.placePiece(blackPawnCoords, blackPawn);
+
+        // Act
+        List<Move> knightMoves = knight.getAllowedMoves(knightCoords, board);
+
+        // Assert
+        assertThat(knightMoves).contains(new Move(knightCoords, knightCoords.plus(-2, 1)));
     }
 }
