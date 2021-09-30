@@ -71,4 +71,61 @@ public class BishopTest {
         // Assert
         assertThat(moves).doesNotContain(new Move(coords, coords.plus(5, 4)));
     }
+
+    @Test
+    public void bishopCannotJumpOverAnotherPiece() {
+        // Arrange
+        Board board = Board.empty();
+        Piece bishop = new Bishop(PlayerColour.WHITE);
+        Coordinates bishopCoords = new Coordinates(4, 4);
+        board.placePiece(bishopCoords, bishop);
+
+        Piece pawn = new Pawn(PlayerColour.WHITE);
+        Coordinates pawnCoords = new Coordinates(6, 6);
+        board.placePiece(pawnCoords, pawn);
+
+        // Act
+        List<Move> moves = bishop.getAllowedMoves(bishopCoords, board);
+
+        // Assert
+        assertThat(moves).doesNotContain(new Move(bishopCoords, bishopCoords.plus(3, 3)));
+    }
+
+    @Test
+    public void whiteBishopCanCaptureABlackPiece() {
+        // Arrange
+        Board board = Board.empty();
+        Piece bishop = new Bishop(PlayerColour.WHITE);
+        Coordinates bishopCoords = new Coordinates(4, 4);
+        board.placePiece(bishopCoords, bishop);
+
+        Piece pawn = new Pawn(PlayerColour.BLACK);
+        Coordinates pawnCoords = new Coordinates(6, 6);
+        board.placePiece(pawnCoords, pawn);
+
+        // Act
+        List<Move> moves = bishop.getAllowedMoves(bishopCoords, board);
+
+        // Assert
+        assertThat(moves).contains(new Move(bishopCoords, bishopCoords.plus(2, 2)));
+    }
+
+    @Test
+    public void whiteBishopCannotMoveOnAWhitePiece() {
+        // Arrange
+        Board board = Board.empty();
+        Piece bishop = new Bishop(PlayerColour.WHITE);
+        Coordinates bishopCoords = new Coordinates(4, 4);
+        board.placePiece(bishopCoords, bishop);
+
+        Piece pawn = new Pawn(PlayerColour.BLACK);
+        Coordinates pawnCoords = new Coordinates(6, 6);
+        board.placePiece(pawnCoords, pawn);
+
+        // Act
+        List<Move> moves = bishop.getAllowedMoves(bishopCoords, board);
+
+        // Assert
+        assertThat(moves).doesNotContain(new Move(bishopCoords, bishopCoords.plus(2, 2)));
+    }
 }
