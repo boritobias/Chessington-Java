@@ -15,6 +15,10 @@ public class Bishop extends AbstractPiece {
 
     @Override
     public List<Move> getAllowedMoves(Coordinates from, Board board) {
+        return getMoves(from, board);
+    }
+
+    public static List<Move> getMoves(Coordinates from, Board board) {
         List<Move> possibleMoves = new ArrayList<>();
 
         int[] moveDirections = {-1, 1};
