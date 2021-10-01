@@ -7,6 +7,7 @@ import training.chessington.model.PlayerColour;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class Knight extends AbstractPiece {
     public Knight(PlayerColour colour) {
@@ -17,14 +18,15 @@ public class Knight extends AbstractPiece {
     public List<Move> getAllowedMoves(Coordinates from, Board board) {
         List<Move> allowedMoves = new ArrayList<>();
         List<Move> possibleMoves = new ArrayList<>();
-        possibleMoves.add(new Move(from, from.plus(-2, 1)));
-        possibleMoves.add(new Move(from, from.plus(-2, -1)));
-        possibleMoves.add(new Move(from, from.plus(2, 1)));
-        possibleMoves.add(new Move(from, from.plus(2, -1)));
-        possibleMoves.add(new Move(from, from.plus(-1, 2)));
-        possibleMoves.add(new Move(from, from.plus(-1, -2)));
-        possibleMoves.add(new Move(from, from.plus(1, 2)));
-        possibleMoves.add(new Move(from, from.plus(1, -2)));
+
+        int[] moveDirections = {-2, -1, 1, 2};
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (moveDirections[i] != moveDirections[j] && moveDirections[i] != moveDirections[j] * -1) {
+                    possibleMoves.add(new Move(from, from.plus(moveDirections[i], moveDirections[j])));
+                }
+            }
+        }
 
         possibleMoves.forEach(move -> {
             int row = move.getTo().getRow();

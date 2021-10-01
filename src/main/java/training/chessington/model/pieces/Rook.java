@@ -17,10 +17,14 @@ public class Rook extends AbstractPiece {
     public List<Move> getAllowedMoves(Coordinates from, Board board) {
         ArrayList<Move> possibleMoves = new ArrayList<>();
 
-        possibleMoves.addAll(getPossibleMoves(from, board, 1, 0));
-        possibleMoves.addAll(getPossibleMoves(from, board, -1, 0));
-        possibleMoves.addAll(getPossibleMoves(from, board, 0, 1));
-        possibleMoves.addAll(getPossibleMoves(from, board, 0, -1));
+        int[] moveDirections = {0, -1, 1};
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (moveDirections[i] != moveDirections[j] && moveDirections[i] != moveDirections[j] * -1) {
+                    possibleMoves.addAll(getPossibleMoves(from, board, moveDirections[i], moveDirections[j]));
+                }
+            }
+        }
 
         return possibleMoves;
     }

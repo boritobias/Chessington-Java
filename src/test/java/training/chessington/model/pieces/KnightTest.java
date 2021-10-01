@@ -64,7 +64,7 @@ public class KnightTest {
         List<Move> knightMoves = knight.getAllowedMoves(knightCoords, board);
 
         // Assert
-        assertThat(knightMoves).doesNotContain(new Move(knightCoords, knightCoords.plus(-2, 1)));
+        assertThat(knightMoves).doesNotContain(new Move(knightCoords, new Coordinates(1, 3)));
     }
 
     @Test

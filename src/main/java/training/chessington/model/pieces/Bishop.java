@@ -17,10 +17,17 @@ public class Bishop extends AbstractPiece {
     public List<Move> getAllowedMoves(Coordinates from, Board board) {
         List<Move> possibleMoves = new ArrayList<>();
 
-        possibleMoves.addAll(getPossibleMoves(from, board, 1, 1));
-        possibleMoves.addAll(getPossibleMoves(from, board, -1, 1));
-        possibleMoves.addAll(getPossibleMoves(from, board, 1, -1));
-        possibleMoves.addAll(getPossibleMoves(from, board, -1, -1));
+//        possibleMoves.addAll(getPossibleMoves(from, board, 1, 1));
+//        possibleMoves.addAll(getPossibleMoves(from, board, -1, 1));
+//        possibleMoves.addAll(getPossibleMoves(from, board, 1, -1));
+//        possibleMoves.addAll(getPossibleMoves(from, board, -1, -1));
+
+        int[] moveDirections = {-1, 1};
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                possibleMoves.addAll(getPossibleMoves(from, board, moveDirections[i], moveDirections[j]));
+            }
+        }
 
         return possibleMoves;
     }
