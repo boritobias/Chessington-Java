@@ -30,4 +30,19 @@ public class KingTest {
         assertThat(moves).doesNotContain(new Move(coords, coords));
     }
 
+    @Test
+    public void kingCannotMoveOffTheBoard() {
+        // Arrange
+        Board board = Board.empty();
+        Piece king = new King(PlayerColour.WHITE);
+        Coordinates coords = new Coordinates(7, 3);
+        board.placePiece(coords, king);
+
+        // Act
+        List<Move> moves = king.getAllowedMoves(coords, board);
+
+        // Assert
+        assertThat(moves).doesNotContain(new Move(coords, coords.plus(1, 0)));
+    }
+
 }

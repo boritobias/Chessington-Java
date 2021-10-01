@@ -16,7 +16,9 @@ public class King extends AbstractPiece {
     @Override
     public List<Move> getAllowedMoves(Coordinates from, Board board) {
         ArrayList<Move> allowedMoves = new ArrayList<>();
+
         ArrayList<Move> possibleMoves = new ArrayList<>();
+
         int[] directions = {-1, 0, 1};
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -26,6 +28,14 @@ public class King extends AbstractPiece {
             }
         }
 
-        return possibleMoves;
+        possibleMoves.forEach(move -> {
+            int row = move.getTo().getRow();
+            int col = move.getTo().getCol();
+            if (row >= 0 && row <= 7 && col >= 0 && col <= 7) {
+                allowedMoves.add(move);
+            }
+        });
+
+        return allowedMoves;
     }
 }
