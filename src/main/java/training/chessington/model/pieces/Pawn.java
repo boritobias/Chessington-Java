@@ -48,7 +48,8 @@ public class Pawn extends AbstractPiece {
             int[] moves = {-1, 1};
             for (int move : moves) {
                 // check if diagonal square is inside board and not empty, and it's enemy colour
-                if (from.getCol()+move >= 0 && from.getCol()+move <= 7 && board.get(from.plus(direction, move)) != null && board.get(from.plus(direction, move)).getColour() != board.get(from).getColour()) {
+                if (from.getCol()+move >= 0 && from.getCol()+move <= 7 &&
+                        board.get(from.plus(direction, move)) != null && board.get(from.plus(direction, move)).getColour() != board.get(from).getColour()) {
                     possibleMoves.add(new Move(from, from.plus(direction, move)));
                 }
             }
