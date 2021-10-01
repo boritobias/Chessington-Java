@@ -73,7 +73,7 @@ public class RookTest {
         List<Move> moves = rook.getAllowedMoves(rookCoords, board);
 
         // Assert
-        assertThat(moves).doesNotContain(new Move(rookCoords, pawnCoords));
+        assertThat(moves).doesNotContain(new Move(rookCoords, rookCoords.plus(-2, 0)));
     }
 
     @Test
