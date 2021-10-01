@@ -16,56 +16,44 @@ public class Pawn extends AbstractPiece {
     @Override
     public List<Move> getAllowedMoves(Coordinates from, Board board) {
         ArrayList<Move> allowedMoves = new ArrayList<>();
+
+        int whiteDirection = -1;
+        int whiteStartingRow = 6;
+        int blackDirection = 1;
+        int blackStartingRow = 1;
+
         switch (colour) {
             case WHITE:
-                // not at the top edge
-                if (from.getRow() > 0) {
-                    // one in front is empty
-                    if (board.get(from.plus(-1, 0)) == null) {
-                        allowedMoves.add(new Move(from, from.plus(-1, 0)));
-                        // in initial position and two in front is empty
-                        if (from.getRow() == 6 && board.get(from.plus(-2, 0)) == null) {
-                            allowedMoves.add(new Move(from, from.plus(-2, 0)));
-                        }
-                    }
-                    // not at the right most column
-                    if (from.getCol() < 7) {
-                        // right diagonal is not empty and it's a black piece
-                        if (board.get(from.plus(-1, 1)) != null && board.get(from.plus(-1, 1)).getColour() == PlayerColour.BLACK) {
-                            allowedMoves.add(new Move(from, from.plus(-1, 1)));
-                        }
-                    }
-                    // not at the left most column
-                    if (from.getCol() > 0) {
-                        // left diagonal is not empty and it's a black piece
-                        if (board.get(from.plus(-1, -1)) != null && board.get(from.plus(-1, -1)).getColour() == PlayerColour.BLACK) {
-                            allowedMoves.add(new Move(from, from.plus(-1, -1)));
-                        }
-                    }
-                }
-                break;
+                return getPossibleMoves(from, board, whiteDirection, whiteStartingRow);
             case BLACK:
-                if (from.getRow() < 7) {
-                    if (board.get(from.plus(1, 0)) == null) {
-                        allowedMoves.add(new Move(from, from.plus(1, 0)));
-                        if (from.getRow() == 1 && board.get(from.plus(2, 0)) == null) {
-                            allowedMoves.add(new Move(from, from.plus(2, 0)));
-                        }
-                    }
-                    if (from.getCol() < 7) {
-                        if (board.get(from.plus(1, 1)) != null && board.get(from.plus(1, 1)).getColour() == PlayerColour.WHITE) {
-                            allowedMoves.add(new Move(from, from.plus(1, 1)));
-
-                        }
-                    }
-                    if (from.getCol() > 0) {
-                        if (board.get(from.plus(1, -1)) != null && board.get(from.plus(1, -1)).getColour() == PlayerColour.WHITE) {
-                            allowedMoves.add(new Move(from, from.plus(1, -1)));
-                        }
-                    }
-                }
-                break;
+                return getPossibleMoves(from, board, blackDirection,blackStartingRow);
         }
         return allowedMoves;
+    }
+
+    ArrayList<Move> getPossibleMoves(Coordinates from, Board board, int direction, int startingRow) {
+        ArrayList<Move> possibleMoves = new ArrayList<>();
+
+        // check if next step is inside board
+        if (from.getRow()+direction >= 0 && from.getRow()+direction <= 7) {
+            // check if one move square is empty
+            if (board.get(from.plus(direction, 0)) == null) {
+                possibleMoves.add(new Move(from, from.plus(direction, 0)));
+                // check if in starting position and two move square is empty
+                if (from.getRow() == startingRow && board.get(from.plus(2*direction, 0)) == null) {
+                    possibleMoves.add(new Move(from, from.plus(2 * direction, 0)));
+                }
+            }
+
+            int[] moves = {-1, 1};
+            for (int move : moves) {
+                // check if diagonal square is inside board and not empty, and it's enemy colour
+                if (from.getCol()+move >= 0 && from.getCol()+move <= 7 && board.get(from.plus(direction, move)) != null && board.get(from.plus(direction, move)).getColour() != board.get(from).getColour()) {
+                    possibleMoves.add(new Move(from, from.plus(direction, move)));
+                }
+            }
+        }
+
+        return possibleMoves;
     }
 }
