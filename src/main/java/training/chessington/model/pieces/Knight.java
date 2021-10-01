@@ -33,7 +33,7 @@ public class Knight extends AbstractPiece {
             int col = move.getTo().getCol();
             if (row >= 0 && row <= 7 && col >= 0 && col <= 7) {
                 if (board.get(new Coordinates(row, col)) == null || board.get(new Coordinates(row, col)).getColour() != board.get(from).getColour()) {
-                allowedMoves.add(move);
+                    allowedMoves.add(move);
                 }
             }
         });

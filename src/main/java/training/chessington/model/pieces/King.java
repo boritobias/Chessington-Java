@@ -28,11 +28,14 @@ public class King extends AbstractPiece {
             }
         }
 
+        // it's duplicate code but later king won't be allowed to move into check and the code will be changed
         possibleMoves.forEach(move -> {
             int row = move.getTo().getRow();
             int col = move.getTo().getCol();
             if (row >= 0 && row <= 7 && col >= 0 && col <= 7) {
-                allowedMoves.add(move);
+                if (board.get(new Coordinates(row, col)) == null || board.get(new Coordinates(row, col)).getColour() != board.get(from).getColour()) {
+                    allowedMoves.add(move);
+                }
             }
         });
 
