@@ -20,10 +20,10 @@ public class Knight extends AbstractPiece {
         List<Move> possibleMoves = new ArrayList<>();
 
         int[] moveDirections = {-2, -1, 1, 2};
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                if (moveDirections[i] != moveDirections[j] && moveDirections[i] != moveDirections[j] * -1) {
-                    possibleMoves.add(new Move(from, from.plus(moveDirections[i], moveDirections[j])));
+        for (int rowDir : moveDirections) {
+            for (int colDir : moveDirections) {
+                if (rowDir != colDir && rowDir != colDir * -1) {
+                    possibleMoves.add(new Move(from, from.plus(rowDir, colDir)));
                 }
             }
         }

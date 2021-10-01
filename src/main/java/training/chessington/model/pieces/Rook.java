@@ -22,11 +22,12 @@ public class Rook extends AbstractPiece {
         ArrayList<Move> possibleMoves = new ArrayList<>();
 
         int[] moveDirections = {0, -1, 1};
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (moveDirections[i] != moveDirections[j] && moveDirections[i] != moveDirections[j] * -1) {
-                    possibleMoves.addAll(PossibleMoves.getPossibleMoves(from, board, moveDirections[i], moveDirections[j]));
+        for (int rowDir : moveDirections) {
+            for (int colDir : moveDirections) {
+                if (rowDir != colDir && rowDir != colDir * -1) {
+                    possibleMoves.addAll(PossibleMoves.getPossibleMoves(from, board, rowDir, colDir));
                 }
+
             }
         }
 

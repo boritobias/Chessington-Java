@@ -22,9 +22,9 @@ public class Bishop extends AbstractPiece {
         List<Move> possibleMoves = new ArrayList<>();
 
         int[] moveDirections = {-1, 1};
-        for (int i = 0; i < 2; i++) {
-            for (int j = 0; j < 2; j++) {
-                possibleMoves.addAll(PossibleMoves.getPossibleMoves(from, board, moveDirections[i], moveDirections[j]));
+        for (int rowDir : moveDirections) {
+            for (int colDir : moveDirections) {
+                possibleMoves.addAll(PossibleMoves.getPossibleMoves(from, board, rowDir, colDir));
             }
         }
 
